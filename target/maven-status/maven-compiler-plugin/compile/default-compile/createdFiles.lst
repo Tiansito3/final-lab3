@@ -1,0 +1,12 @@
+com\lab3\finalproject\service\CarreraService.class
+com\lab3\finalproject\model\AsignaturaEstado.class
+com\lab3\finalproject\model\Alumno.class
+com\lab3\finalproject\model\Estado.class
+com\lab3\finalproject\service\MateriaService.class
+com\lab3\finalproject\model\Materia.class
+com\lab3\finalproject\controller\AlumnoController.class
+com\lab3\finalproject\controller\CarreraController.class
+com\lab3\finalproject\service\AlumnoService.class
+com\lab3\finalproject\controller\MateriaController.class
+com\lab3\finalproject\FinalLab3Application.class
+com\lab3\finalproject\model\Carrera.class
