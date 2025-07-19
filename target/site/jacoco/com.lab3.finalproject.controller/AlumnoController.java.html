@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AlumnoController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">final-lab3</a> &gt; <a href="index.source.html" class="el_package">com.lab3.finalproject.controller</a> &gt; <span class="el_source">AlumnoController.java</span></div><h1>AlumnoController.java</h1><pre class="source lang-java linenums">// AlumnoController.java
+package com.lab3.finalproject.controller;
+
+import com.lab3.finalproject.model.Alumno;
+import com.lab3.finalproject.service.AlumnoService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping(&quot;/alumno&quot;)
+<span class="nc" id="L14">public class AlumnoController {</span>
+
+    @Autowired
+    private AlumnoService alumnoService;
+
+    @PostMapping
+    public Alumno crearAlumno(@RequestBody Alumno alumno) {
+<span class="nc" id="L21">        return alumnoService.crearAlumno(alumno);</span>
+    }
+
+    @PutMapping(&quot;/{id}&quot;)
+    public Alumno modificarAlumno(@PathVariable(&quot;id&quot;) Long id, @RequestBody Alumno alumno) {
+<span class="nc" id="L26">        return alumnoService.modificarAlumno(id, alumno);</span>
+    }
+
+    @DeleteMapping(&quot;/{id}&quot;)
+    public void eliminarAlumno(@PathVariable(&quot;id&quot;) Long id) {
+<span class="nc" id="L31">        alumnoService.eliminarAlumno(id);</span>
+<span class="nc" id="L32">    }</span>
+
+    @PutMapping(&quot;/{idAlumno}/asignatura/{idAsignatura}&quot;)
+    public ResponseEntity&lt;String&gt; actualizarAsignatura(
+            @PathVariable(&quot;idAlumno&quot;) Long idAlumno,
+            @PathVariable(&quot;idAsignatura&quot;) Long idAsignatura,
+            @RequestParam(&quot;estado&quot;) String estado) {
+
+<span class="nc" id="L40">        boolean actualizado = alumnoService.actualizarEstadoAsignatura(idAlumno, idAsignatura, estado);</span>
+
+<span class="nc bnc" id="L42" title="All 2 branches missed.">        if (actualizado) {</span>
+<span class="nc" id="L43">            return ResponseEntity.ok(&quot;Estado de asignatura actualizado correctamente&quot;);</span>
+        } else {
+<span class="nc" id="L45">            return ResponseEntity.notFound().build();</span>
+        }
+    }
+
+    @GetMapping
+    public List&lt;Alumno&gt; listarAlumnos() {
+<span class="nc" id="L51">        return alumnoService.listarAlumnos();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

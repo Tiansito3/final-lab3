@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AlumnoService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">final-lab3</a> &gt; <a href="index.source.html" class="el_package">com.lab3.finalproject.service</a> &gt; <span class="el_source">AlumnoService.java</span></div><h1>AlumnoService.java</h1><pre class="source lang-java linenums">package com.lab3.finalproject.service;
+
+import com.lab3.finalproject.model.Alumno;
+import com.lab3.finalproject.model.AsignaturaEstado;
+import com.lab3.finalproject.model.Estado;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Service
+<span class="fc" id="L12">public class AlumnoService {</span>
+
+<span class="fc" id="L14">    private List&lt;Alumno&gt; alumnos = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L15">    private Long nextId = 1L;</span>
+
+    public Alumno crearAlumno(Alumno alumno) {
+<span class="fc" id="L18">        alumno.setId(nextId++);</span>
+<span class="fc" id="L19">        alumnos.add(alumno);</span>
+<span class="fc" id="L20">        return alumno;</span>
+    }
+
+    public boolean actualizarEstadoAsignatura(Long idAlumno, Long idAsignatura, String nuevoEstado) {
+<span class="fc" id="L24">        Alumno alumno = obtenerAlumnoPorId(idAlumno);</span>
+<span class="pc bpc" id="L25" title="1 of 2 branches missed.">        if (alumno == null) return false;</span>
+
+<span class="pc bpc" id="L27" title="1 of 2 branches missed.">        for (AsignaturaEstado ae : alumno.getAsignaturasEstado()) {</span>
+<span class="pc bpc" id="L28" title="1 of 2 branches missed.">            if (ae.getAsignatura().getId().equals(idAsignatura)) {</span>
+<span class="fc" id="L29">                ae.setEstado(Estado.valueOf(nuevoEstado.toUpperCase()));</span>
+<span class="fc" id="L30">                return true;</span>
+            }
+<span class="nc" id="L32">        }</span>
+<span class="nc" id="L33">        return false;</span>
+    }
+
+    public Alumno modificarAlumno(Long id, Alumno alumnoActualizado) {
+<span class="nc bnc" id="L37" title="All 2 branches missed.">        for (Alumno a : alumnos) {</span>
+<span class="nc bnc" id="L38" title="All 2 branches missed.">            if (a.getId().equals(id)) {</span>
+<span class="nc" id="L39">                a.setNombre(alumnoActualizado.getNombre());</span>
+<span class="nc" id="L40">                a.setApellido(alumnoActualizado.getApellido());</span>
+<span class="nc" id="L41">                a.setDni(alumnoActualizado.getDni());</span>
+<span class="nc" id="L42">                a.setAsignaturasEstado(alumnoActualizado.getAsignaturasEstado());</span>
+<span class="nc" id="L43">                return a;</span>
+            }
+<span class="nc" id="L45">        }</span>
+<span class="nc" id="L46">        return null;</span>
+    }
+
+    public boolean eliminarAlumno(Long id) {
+<span class="nc" id="L50">        return alumnos.removeIf(a -&gt; a.getId().equals(id));</span>
+    }
+
+    public List&lt;Alumno&gt; listarAlumnos() {
+<span class="nc" id="L54">        return alumnos;</span>
+    }
+
+    public Alumno obtenerAlumnoPorId(Long id) {
+<span class="fc" id="L58">        return alumnos.stream().filter(a -&gt; a.getId().equals(id)).findFirst().orElse(null);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
